@@ -1,0 +1,27 @@
+python3 -m venv venv  
+cd venv  
+source bin/activate  o source venv/bin/activate  
+
+git clone https://github.com/ultralytics/yolov5
+cd yolov5
+
+pip install -r requirements.txt
+
+pip install mas cosas
+
+
+
+
+Entornos Windows:
+Crear carpeta
+python -m venv C:\Users\edwin\Documents\IoT\EntornosVENV\mi_entorno
+
+Set-ExecutionPolicy Unrestricted -Scope Process
+cd C:\Users\edwin\Documents\IoT\EntornosVENV\mi_entorno
+.\Scripts\Activate.ps1
+
+Adegurar dentro del entorno:
+git
+echo > scriptName.py
+code scriptName.py
+python scriptName.py
