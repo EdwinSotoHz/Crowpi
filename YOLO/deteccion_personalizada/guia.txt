@@ -1,0 +1,48 @@
+fotos o download all
+subir roboflow object detection
+start autolabel
+class name
+description
+autolabeling this model
+aprove all
+add images -> Split Images Between Train/Valid/Test 80, 20, 0
+
+versions preprocesing (segun vea)
+
+versions
+
+annotate -> validacion de imagenes
+train model
+
+export dataset yolo5
+
+https://colab.research.google.com/github/ultralytics/yolov5/blob/master/tutorial.ipynb?authuser=1
+
+setup
+subir .zip
+descomprimir: !unzip -q /content/data.zip -d /content/
+modificar .yaml:
+    train: /content/data/train
+    val: /content/data/valid
+    test: # opcional
+
+subir .yaml a yolov5/data
+Select YOLOv5 🚀 logger ->  
+# Train YOLOv5s on COCO128 for 3 epochs
+!python train.py --img 640 --batch 4 --epochs 50 --data /content/yolov5/data/data.yaml --weights yolov5s.pt --cache
+
+descagar .pt
+from google.colab import files
+files.download('./runs/train/exp3/weights/best.pt')
+
+
+
+
+
+
+
+*********************
+!unzip -q /content/data.zip -d /content/
+
+import shutil
+shutil.rmtree('/content/valid', ignore_errors=True)
