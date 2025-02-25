@@ -1,0 +1,134 @@
+pip3 install opencv-python
+pip install tflite-runtime
+
+320 entrenar imagenes
+
+pip install tensorflow on windows
+
+Classes:
+person
+bicycle
+car
+motorcycle
+airplane
+bus
+train
+truck
+boat
+traffic light
+fire hydrant
+N/A
+stop sign
+parking meter
+bench
+bird
+cat
+dog
+horse
+sheep
+cow
+elephant
+bear
+zebra
+giraffe
+hat
+backpack
+umbrella
+handbag
+tie
+suitcase
+frisbee
+skis
+snowboard
+sports ball
+kite
+baseball bat
+baseball glove
+skateboard
+surfboard
+tennis racket
+bottle
+wine glass
+cup
+fork
+knife
+spoon
+bowl
+banana
+apple
+sandwich
+orange
+broccoli
+carrot
+hot dog
+pizza
+donut
+cake
+chair
+couch
+potted plant
+bed
+dining table
+toilet
+tv
+laptop
+mouse
+remote
+keyboard
+cell phone
+microwave
+oven
+toaster
+sink
+refrigerator
+book
+clock
+vase
+scissors
+teddy bear
+
+
+--------------------------------------------------- conversion
+!pip install torch
+!pip install tensorflow
+!pip install onnx
+!pip install tf2onnx
+++++++++++++++++++++++++++++++++++++++++++
+import torch
+
+# Cargar el modelo entrenado
+model = torch.load('ruta/a/tu/modelo.pt')['model'].float()  # Reemplaza con la ruta correcta de tu modelo
+model.eval()  # Asegúrate de poner el modelo en modo de evaluación
+++++++++++++++++++++++++++++++++++++++++++
+import torch.onnx
+
+# Definir una entrada de ejemplo (asegúrate de que coincida con las dimensiones de entrada esperadas por el modelo)
+dummy_input = torch.randn(1, 3, 640, 640)  # Cambia el tamaño de la entrada si es diferente
+
+# Exportar el modelo a ONNX
+onnx_path = '/content/modelo.onnx'
+torch.onnx.export(model, dummy_input, onnx_path, verbose=True, input_names=['input'], output_names=['output'])
+print(f'Modelo ONNX guardado en {onnx_path}')
+++++++++++++++++++++++++++++++++++++++++++
+import tf2onnx
+import tensorflow as tf
+
+# Convertir ONNX a TensorFlow
+tf_path = '/content/modelo_saved_model'
+os.system(f'python -m tf2onnx.convert --saved-model {onnx_path} --output {tf_path}')
+++++++++++++++++++++++++++++++++++++++++++
+# Cargar el modelo en TensorFlow
+converter = tf.lite.TFLiteConverter.from_saved_model(tf_path)
+
+# Convertir a tflite
+tflite_model = converter.convert()
+
+# Guardar el modelo .tflite
+tflite_path = '/content/modelo.tflite'
+with open(tflite_path, 'wb') as f:
+    f.write(tflite_model)
+print(f'Modelo .tflite guardado en {tflite_path}')
+++++++++++++++++++++++++++++++++++++++++++
+from google.colab import files
+files.download(tflite_path)
+++++++++++++++++++++++++++++++++++++++++++
